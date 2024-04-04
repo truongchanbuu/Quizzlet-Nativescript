@@ -1,0 +1,104 @@
+<Page xmlns="http://www.nativescript.org/tns.xsd" xmlns:ui="@nativescript/animated-circle" loaded="onLoaded" navigatedTo="onNavigatedTo">
+    <Page.actionBar>
+        <ActionBar>
+            <Label
+                text="{{ totalCurrentFlashCard === 0 ? '0 / 0' : (currentCardIndex + 1 > totalCurrentFlashCard ? totalCurrentFlashCard + ' / ' + totalCurrentFlashCard : currentCardIndex + 1 + ' / ' + totalCurrentFlashCard) }}" 
+                textWrap="true" 
+            />
+        </ActionBar>
+    </Page.actionBar>
+
+    <StackLayout>
+        <GridLayout rows="40%, auto, auto" columns="*, 3*, *" marginTop="10" visibility="{{ currentCardIndex < totalCurrentFlashCard ? 'visible' : 'collapsed' }}">
+            <Label text="{{ isCountingStudying ? '+1' : countStudying }}" row="0" col="0" backgroundColor="orange" class="counter-left" />
+            <Label text="{{ isCountingKnown ? '+1' : countKnown }}" row="0" col="2" backgroundColor="green" class="counter-right" />
+        </GridLayout>
+
+        <GridLayout rows="auto" columns="*" horizontalAlignment="center" marginTop="20" visibility="{{ currentCardIndex < totalCurrentFlashCard ? 'visible' : 'collapsed' }}">
+            <Button visibility="{{ currentCard ? 'visible' : 'collapsed' }}"
+                id="flash-card"
+                tap="flipCard" 
+                longPress="onLongPress"
+                pan="onPan"
+                text="{{ isCountingStudying ? 'Đang học' : (isCountingKnown ? 'Đã biết' : (isShowed ? currentCard.answer : currentCard.question)) }}" 
+                textWrap="true" 
+                color="{{ isCountingStudying ? 'orange' : (isCountingKnown) ? 'green' : 'black' }}"
+                fontSize="{{ isCountingStudying || isCountingKnown ? 50 : 30 }}"
+                fontWeight="{{ isCountingStudying || isCountingKnown ? 'bold' : 'normal' }}"
+                class="flippable-card"
+            />
+            <Label visibility="{{ currentCard ? 'collapsed' : 'visible' }}"
+                height="85%"
+                text="No Item"
+                color="gray"
+                fontSize="20"
+                fontWeight="bold"
+                class="no-item-label"
+            />
+        </GridLayout>
+
+        <FlexboxLayout width="100%" justifyContent="space-between" margin="20" visibility="{{ currentCardIndex < totalCurrentFlashCard ? 'visible' : 'collapsed' }}">
+            <Button 
+                class="zmdi"
+                text="{{ '\uf258' | fonticon }}" 
+                tap="undoCard"
+                textWrap="true" 
+                fontSize="30" 
+                isEnabled="{{ currentCardIndex > 0 }}" 
+                boxShadow="none" 
+                backgroundColor="transparent"
+            />
+            <Label text="{{ isAutoPlaying ? 'Tự động đang bật' : 'Chạm vào thẻ để thấy đáp án' }}" textWrap="true" />
+            <Button 
+                class="zmdi"
+                text="{{ isAutoPlaying ? '\uf3a7' : '\uf3aa' }}" 
+                tap="autoPlay" 
+                textWrap="true" 
+                fontSize="30" 
+                boxShadow="none" 
+                backgroundColor="transparent"    
+             />
+        </FlexboxLayout>
+
+        <StackLayout visibility="{{ currentCardIndex >= totalCurrentFlashCard ? 'visible' : 'collapsed' }}">
+            <FlexboxLayout margin="0 10 0 10">
+                <Image
+                    marginRight="20"
+                    width="40%"
+                    stretch="aspectFit"
+                    src="~/assets/images/congratulation-icon.png"
+                />
+                <Label 
+                    class="finish-label"
+                    text="Bạn đang làm rất tốt! Hãy tiếp tục tiến lên phía trước nào!!!"
+                    textWrap="true"
+                />
+            </FlexboxLayout>
+
+            <FlexboxLayout margin="0 10 0 10" justifyContent="space-around" alignItems="center">
+                <ui:AnimatedCircle
+                    backgroundColor="transparent"
+                    width="30%"
+                    height="30%"
+                    rimColor="orange"
+                    barColor="green"
+                    animated="true"
+                    clockwise="true"
+                    animateFrom="0"
+                    rimWidth="30"
+                    progress="{{ progress * 100 }}"
+                    text="{{ progress * 100 + '%' }}"
+                    textSize="10" />
+                
+                <GridLayout rows="auto, auto" columns="*, *" marginLeft="20" horizontalAlignment="right" >
+                    <Label class="statics-label" text="Biết:" row="0" col="0" />
+                    <Label class="statics-label" text="{{ countKnown }}" row="0" col="1" textAlignment="right" />
+                    <Label class="statics-label" text="Đang học:" row="1" col="0" />
+                    <Label class="statics-label" text="{{ countStudying }}" row="1" col="1" textAlignment="right" />
+                </GridLayout>
+            </FlexboxLayout>
+
+            <Button class="button-no-border" text="Đặt lại Flash Card" fontWeight="bold" tap="resetFlashCards" />
+        </StackLayout>
+    </StackLayout>
+</Page>

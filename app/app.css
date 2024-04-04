@@ -4,3 +4,7 @@
 Button.-primary {
   font-size: 18;
 }
+
+.zmdi {
+  font-family: Material-Design-Iconic-Font;
+}
