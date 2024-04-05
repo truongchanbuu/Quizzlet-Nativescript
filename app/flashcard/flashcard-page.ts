@@ -1,7 +1,9 @@
 import { Animation, Button, CoreTypes, Dialogs, NavigatedData, Page, PanGestureEventData } from "@nativescript/core";
 import { FlashCardViewModel } from "./flashcard-view-model";
+import { CardState } from "~/models/flashcard-state.model";
 
 let isPanningHandle = false;
+const history: CardState[] = [];
 
 export function onNavigatedTo(args: NavigatedData) {
     if (args.isBackNavigation) {
@@ -63,8 +65,18 @@ export function onPan(args: PanGestureEventData) {
 
         if (Math.abs(args.deltaX) > threshold) {
             if (direction === "left") {
+                saveToHistory({
+                    card: viewModel.currentCard,
+                    studying: viewModel.countStudying,
+                    known: viewModel.countKnown,
+                });
                 viewModel.set("countStudying", viewModel.get("countStudying") + 1);
             } else {
+                saveToHistory({
+                    card: viewModel.currentCard,
+                    studying: viewModel.countStudying,
+                    known: viewModel.countKnown,
+                });
                 viewModel.set("countKnown", viewModel.get("countKnown") + 1);
             }
 
@@ -138,6 +150,13 @@ export function autoPlay(args) {
                 viewModel.toggleAnswer();
             } else {
                 viewModel.set('isCountingKnown', true);
+
+                saveToHistory({
+                    card: viewModel.currentCard,
+                    known: viewModel.get('countKnown'),
+                    studying: viewModel.get('countStudying'),
+                });
+
                 viewModel.set("countKnown", viewModel.get("countKnown") + 1);
                 
                 card.animate({
@@ -170,5 +189,21 @@ export function undoCard(args) {
     const button = args.object as Button;
     const viewModel = button.page.bindingContext;
 
-    viewModel.prevCard();
+    if (history.length > 0) {
+        const prevState = history.pop();
+
+        if (prevState.known != viewModel.get('countKnown')) {
+            viewModel.set('countKnown', prevState.known);
+        }
+        
+        if (prevState.studying != viewModel.get('countStudying')) {
+            viewModel.set('countStudying', prevState.studying);
+        }
+
+        viewModel.prevCard();
+    }
+}
+
+function saveToHistory(state: CardState) {
+    history.push(state);
 }
