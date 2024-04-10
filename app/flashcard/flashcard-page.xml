@@ -40,7 +40,7 @@
         <FlexboxLayout width="100%" justifyContent="space-between" margin="20" visibility="{{ currentCardIndex < totalCurrentFlashCard ? 'visible' : 'collapsed' }}">
             <Button 
                 class="zmdi"
-                text="{{ '\uf258' | fonticon }}" 
+                text="{{ '\uf258' }}" 
                 tap="undoCard"
                 textWrap="true" 
                 fontSize="30" 
@@ -52,7 +52,7 @@
             <Button 
                 class="zmdi"
                 text="{{ isAutoPlaying ? '\uf3a7' : '\uf3aa' }}" 
-                tap="autoPlay" 
+                tap="autoPlay"
                 textWrap="true" 
                 fontSize="30" 
                 boxShadow="none" 
@@ -60,45 +60,47 @@
              />
         </FlexboxLayout>
 
-        <StackLayout visibility="{{ currentCardIndex >= totalCurrentFlashCard ? 'visible' : 'collapsed' }}">
-            <FlexboxLayout margin="0 10 0 10">
-                <Image
-                    marginRight="20"
-                    width="40%"
-                    stretch="aspectFit"
-                    src="~/assets/images/congratulation-icon.png"
-                />
-                <Label 
-                    class="finish-label"
-                    text="Bạn đang làm rất tốt! Hãy tiếp tục tiến lên phía trước nào!!!"
-                    textWrap="true"
-                />
-            </FlexboxLayout>
+        <GridLayout rows="*, auto" columns="*">
+            <StackLayout row="0" col="0" visibility="{{ currentCardIndex >= totalCurrentFlashCard ? 'visible' : 'collapsed' }}">
+                <FlexboxLayout margin="0 10 0 10">
+                    <Image
+                        marginRight="20"
+                        width="40%"
+                        stretch="aspectFit"
+                        src="~/assets/images/congratulation-icon.png"
+                    />
+                    <Label 
+                        class="finish-label"
+                        text="Bạn đang làm rất tốt! Hãy tiếp tục tiến lên phía trước nào!!!"
+                        textWrap="true"
+                    />
+                </FlexboxLayout>
 
-            <FlexboxLayout margin="0 10 0 10" justifyContent="space-around" alignItems="center">
-                <ui:AnimatedCircle
-                    backgroundColor="transparent"
-                    width="30%"
-                    height="30%"
-                    rimColor="orange"
-                    barColor="green"
-                    animated="true"
-                    clockwise="true"
-                    animateFrom="0"
-                    rimWidth="30"
-                    progress="{{ progress * 100 }}"
-                    text="{{ progress * 100 + '%' }}"
-                    textSize="10" />
-                
-                <GridLayout rows="auto, auto" columns="*, *" marginLeft="20" horizontalAlignment="right" >
-                    <Label class="statics-label" text="Biết:" row="0" col="0" />
-                    <Label class="statics-label" text="{{ countKnown }}" row="0" col="1" textAlignment="right" />
-                    <Label class="statics-label" text="Đang học:" row="1" col="0" />
-                    <Label class="statics-label" text="{{ countStudying }}" row="1" col="1" textAlignment="right" />
-                </GridLayout>
-            </FlexboxLayout>
+                <FlexboxLayout margin="0 10 0 10" justifyContent="space-around" alignItems="center">
+                    <ui:AnimatedCircle
+                        backgroundColor="transparent"
+                        width="30%"
+                        height="30%"
+                        rimColor="orange"
+                        barColor="green"
+                        animated="true"
+                        clockwise="true"
+                        animateFrom="0"
+                        rimWidth="30"
+                        progress="{{ progress * 100 }}"
+                        text="{{ progress * 100 + '%' }}"
+                        textSize="10" />
+                    
+                    <GridLayout rows="auto, auto" columns="*, *" marginLeft="20" horizontalAlignment="right" >
+                        <Label class="statics-label" text="Biết:" row="0" col="0" />
+                        <Label class="statics-label" text="{{ countKnown }}" row="0" col="1" textAlignment="right" />
+                        <Label class="statics-label" text="Đang học:" row="1" col="0" />
+                        <Label class="statics-label" text="{{ countStudying }}" row="1" col="1" textAlignment="right" />
+                    </GridLayout>
+                </FlexboxLayout>
+            </StackLayout>
 
-            <Button class="button-no-border" text="Đặt lại Flash Card" fontWeight="bold" tap="resetFlashCards" />
-        </StackLayout>
+            <Button row="1" col="0" class="reset-button" text="Đặt lại Flash Card" tap="resetFlashCards" />
+        </GridLayout>
     </StackLayout>
 </Page>

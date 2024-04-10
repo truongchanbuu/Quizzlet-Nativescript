@@ -17,17 +17,17 @@
     width: 85%;
     height: 85%;
     border-radius: 100px;
-    box-shadow: 0 5px 30px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
-.finish-label {
+/* .finish-label {
     font-size: 20px;
     font-weight: bold;
 }
 
 .statics-label {
     font-size: 20;
-}
+} */
 
 .button-no-border {
     background-color: transparent;
@@ -35,3 +35,8 @@
     color: blue;
     box-shadow: none;
 }
+
+/* .reset-button {
+    background-color: blue;
+    color: white;
+} */

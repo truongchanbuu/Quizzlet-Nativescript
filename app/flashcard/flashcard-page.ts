@@ -1,4 +1,4 @@
-import { Animation, Button, CoreTypes, Dialogs, NavigatedData, Page, PanGestureEventData } from "@nativescript/core";
+import { Button, CoreTypes, Dialogs, NavigatedData, Page, PanGestureEventData } from "@nativescript/core";
 import { FlashCardViewModel } from "./flashcard-view-model";
 import { CardState } from "~/models/flashcard-state.model";
 
