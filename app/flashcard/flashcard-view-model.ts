@@ -5,7 +5,8 @@ import { FlashCardService } from "~/services/flashcard.service";
 export class FlashCardViewModel extends Observable {
     private flashcards: FlashCard[] = [];
     private isAnswerShowed: boolean = false;
-    private currentCardIndex: number = 0;
+    public isFinished: boolean = false;
+    public currentCardIndex: number = 0;
     private flashCardService: FlashCardService = FlashCardService.getInstance();
     public countStudying: number = 0;
     public countKnown: number = 0;
@@ -31,6 +32,11 @@ export class FlashCardViewModel extends Observable {
     nextCard() {
         this.set('isAnswerShowed', false);
         this.currentCardIndex++;
+
+        if (this.currentCardIndex >= this.totalCurrentFlashCard) {
+            this.isFinished = true;
+        }
+
         this.notifyPropertyChange("currentCard", this.currentCard);
     }
 

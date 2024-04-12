@@ -33,7 +33,7 @@ const threshold = 100;
 export function onPan(args: PanGestureEventData) {
     const button = args.object as Button;
     const page = button.page;
-    const viewModel = page.bindingContext;
+    const viewModel = page.bindingContext as FlashCardViewModel;
     const direction = args.deltaX > 0 ? "right" : "left";
 
     if (args.state === 1) {
@@ -116,6 +116,7 @@ export function resetFlashCards(args) {
     const page = args.object.page;
     const viewModel = page.bindingContext;
 
+    viewModel.set('isFinished', false);
     viewModel.set("currentCardIndex", 0);
     viewModel.set("countStudying", 0);
     viewModel.set("countKnown", 0);

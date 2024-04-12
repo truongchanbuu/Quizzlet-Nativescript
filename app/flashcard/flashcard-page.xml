@@ -9,12 +9,12 @@
     </Page.actionBar>
 
     <StackLayout>
-        <GridLayout rows="40%, auto, auto" columns="*, 3*, *" marginTop="10" visibility="{{ currentCardIndex < totalCurrentFlashCard ? 'visible' : 'collapsed' }}">
-            <Label text="{{ isCountingStudying ? '+1' : countStudying }}" row="0" col="0" backgroundColor="orange" class="counter-left" />
-            <Label text="{{ isCountingKnown ? '+1' : countKnown }}" row="0" col="2" backgroundColor="green" class="counter-right" />
+        <GridLayout rows="40%, auto, auto" columns="*, 3*, *" marginTop="10" visibility="{{ isFinished ? 'collapsed' : 'visible' }}">
+            <Label text="{{ isCountingStudying ? '+1' : (countStudying || 0) }}" row="0" col="0" backgroundColor="orange" class="counter-left" />
+            <Label text="{{ isCountingKnown ? '+1' : (countKnown || 0) }}" row="0" col="2" backgroundColor="green" class="counter-right" />
         </GridLayout>
 
-        <GridLayout rows="auto" columns="*" horizontalAlignment="center" marginTop="20" visibility="{{ currentCardIndex < totalCurrentFlashCard ? 'visible' : 'collapsed' }}">
+        <GridLayout rows="auto" columns="*" horizontalAlignment="center" marginTop="20" visibility="{{ isFinished ? 'collapsed' : 'visible' }}">
             <Button visibility="{{ currentCard ? 'visible' : 'collapsed' }}"
                 id="flash-card"
                 tap="flipCard" 
@@ -37,7 +37,7 @@
             />
         </GridLayout>
 
-        <FlexboxLayout width="100%" justifyContent="space-between" margin="20" visibility="{{ currentCardIndex < totalCurrentFlashCard ? 'visible' : 'collapsed' }}">
+        <FlexboxLayout width="100%" justifyContent="space-between" margin="20" visibility="{{ isFinished ? 'collapsed' : 'visible' }}">
             <Button 
                 class="zmdi"
                 text="{{ '\uf258' }}" 
@@ -61,7 +61,7 @@
         </FlexboxLayout>
 
         <GridLayout rows="*, auto" columns="*">
-            <StackLayout row="0" col="0" visibility="{{ currentCardIndex >= totalCurrentFlashCard ? 'visible' : 'collapsed' }}">
+            <StackLayout row="0" col="0" visibility="{{ isFinished ? 'visible' : 'collapsed' }}">
                 <FlexboxLayout margin="0 10 0 10">
                     <Image
                         marginRight="20"
@@ -87,15 +87,15 @@
                         clockwise="true"
                         animateFrom="0"
                         rimWidth="30"
-                        progress="{{ progress * 100 }}"
-                        text="{{ progress * 100 + '%' }}"
+                        progress="{{ (progress || 0) * 100 }}"
+                        text="{{ (progress || 0) * 100 + '%' }}"
                         textSize="10" />
                     
                     <GridLayout rows="auto, auto" columns="*, *" marginLeft="20" horizontalAlignment="right" >
                         <Label class="statics-label" text="Biết:" row="0" col="0" />
-                        <Label class="statics-label" text="{{ countKnown }}" row="0" col="1" textAlignment="right" />
+                        <Label class="statics-label" text="{{ (countKnown || 0) }}" row="0" col="1" textAlignment="right" />
                         <Label class="statics-label" text="Đang học:" row="1" col="0" />
-                        <Label class="statics-label" text="{{ countStudying }}" row="1" col="1" textAlignment="right" />
+                        <Label class="statics-label" text="{{ (countStudying || 0) }}" row="1" col="1" textAlignment="right" />
                     </GridLayout>
                 </FlexboxLayout>
             </StackLayout>
