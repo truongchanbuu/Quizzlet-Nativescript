@@ -36,7 +36,7 @@
             </FlexboxLayout>
         </GridLayout>
 
-        <GridLayout rows="*, auto" columns="*">
+        <GridLayout rows="*, auto" columns="*" visibility="{{ isFinished ? 'visible' : 'collapsed' }}">
             <StackLayout row="0" col="0">
                 <FlexboxLayout margin="0 10 0 10">
                     <Image

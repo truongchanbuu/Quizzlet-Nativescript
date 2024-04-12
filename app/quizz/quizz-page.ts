@@ -11,9 +11,7 @@ export function onNavigatedTo(args: NavigatedData) {
     page.bindingContext = new QuizzViewModel('IT');
 }
 
-export function onLoaded(args) {
-    
-}
+export function onLoaded(args) {}
 
 export function onAnswer(args) {
     const button = args.object as Button;
