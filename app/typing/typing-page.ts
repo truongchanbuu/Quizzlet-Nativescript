@@ -57,3 +57,10 @@ function showResultDialog(message: string) {
         cancelable: false,
     });
 }
+
+export function goBackFirstQuestion(args) {
+    const viewModel = args.object.page.bindingContext as TypingViewModel;
+
+    viewModel.set('currentIndex', 0);
+    viewModel.set('answeredQuestion', []);
+}

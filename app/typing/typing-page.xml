@@ -66,7 +66,7 @@
                 </FlexboxLayout>
             </StackLayout>
 
-            <Button row="1" col="0" class="reset-button" text="Đặt lại các câu hỏi" tap="goBackFirstQuizz" />
+            <Button row="1" col="0" class="reset-button" text="Đặt lại các câu hỏi" tap="goBackFirstQuestion" />
         </GridLayout>     
     </StackLayout>
 </Page>
