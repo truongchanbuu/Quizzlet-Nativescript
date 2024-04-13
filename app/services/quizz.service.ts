@@ -4,12 +4,8 @@ import { Quizz } from "~/models/quizz.model";
 
 export class QuizzService {
     private database: Database;
-    async initData() {
-        await firebase().initializeApp();
-    }
     private quizzes: Quizz[] = [];
     constructor() {
-        this.initData();
         this.database = firebase().database();
         this.database
             .ref()

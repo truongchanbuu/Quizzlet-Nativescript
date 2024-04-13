@@ -5,11 +5,7 @@ import { Typing } from "~/models/typing.model";
 export class TypingService {
     private database: Database;
     private _question: Typing[] = [];
-    async initData() {
-        await firebase().initializeApp();
-    }
     constructor() {
-        this.initData();
         this.database = firebase().database();
         this.database
             .ref()
@@ -17,7 +13,6 @@ export class TypingService {
             .once('value')
             .then(snapshot => {
                 if (snapshot.exists()) {
-                    console.log(snapshot.val())
                     this._question = snapshot.val();
                 } else {
                     console.log('No data availabel');

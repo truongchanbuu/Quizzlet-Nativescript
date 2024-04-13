@@ -4,12 +4,8 @@ import { FlashCard } from "~/models/flashcard.model";
 
 export class FlashCardService {
     private database: Database;
-    async initData() {
-        await firebase().initializeApp();
-    }
     private flashcards: FlashCard[] = [];
     constructor() {
-        this.initData();
         this.database = firebase().database();
         this.database
             .ref()

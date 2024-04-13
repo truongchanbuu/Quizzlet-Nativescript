@@ -14,6 +14,8 @@ FontIcon.paths = {
 };
 FontIcon.loadCss();
 
+await firebase().initializeApp();
+
 Application.setResources({ fonticon });
 Application.run({ moduleName: 'app-root' })
 
