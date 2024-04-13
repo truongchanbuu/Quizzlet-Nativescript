@@ -4,16 +4,10 @@ import { FlashCard } from "~/models/flashcard.model";
 
 export class FlashCardService {
     private database: Database;
-    private defaultApp: FirebaseApp;
-
     async initData() {
-        this.defaultApp = await firebase().initializeApp();
+        await firebase().initializeApp();
     }
-
     private flashcards: FlashCard[] = [];
-
-    private static _instance = new FlashCardService()
-
     constructor() {
         this.initData();
         this.database = firebase().database();
@@ -30,20 +24,25 @@ export class FlashCardService {
             })
             .catch(e => console.log(e));
     }
-
+    private static _instance = new FlashCardService()
+    
     static getInstance() {
         return this._instance;
     }
 
     public getFlashcards(): FlashCard[] {
-        return this.flashcards;
+        return this.flashcards || [];
     }
 
     public getFlashCardById(id: number): FlashCard | null {
         return this.flashcards.find((card, index) => card.id == id);
     }
 
-    public getFlashCardByTopic(topic: String) : FlashCard[] {
+    public getFlashCardByTopic(topic: String): FlashCard[] {
+        if (!Array.isArray(this.flashcards)) {
+            return [];
+        }
+
         return this.flashcards.filter(card => card.topic == topic);
     }
 }

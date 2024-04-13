@@ -58,15 +58,15 @@ export function nextQuizz(args) {
     const button = args.object as Button;
     const viewModel = button.page.bindingContext as QuizzViewModel;
     
-    if (viewModel.currentQuizzIndex !== viewModel.totalQuizzes - 1) {
-        const nextQuizzIndex = viewModel.answeredQuizzes.findIndex(quizz => quizz.id === (viewModel.currentQuizz.id + 1));
-    
+    if (viewModel.currentQuizzIndex < viewModel.totalQuizzes - 1) {
+        viewModel.nextQuizz();
+
+        const nextQuizzIndex = viewModel.answeredQuizzes.findIndex(quizz => quizz.id === viewModel.currentQuizz.id);
+        
         if (nextQuizzIndex !== -1) {
             resetQuizz(button.page);
-            viewModel.nextQuizz();
             restoreStatus(button.page);
         } else {
-            viewModel.nextQuizz();
             resetQuizz(button.page);
         }
     } else {

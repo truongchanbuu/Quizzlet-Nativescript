@@ -9,7 +9,7 @@
     </Page.actionBar>
     
     <StackLayout>
-        <GridLayout rows="*, *, auto" columns="*" margin="10" visibility="{{ isFinished ? 'collapsed' : 'visible' }}">
+        <GridLayout rows="*, *, auto" columns="*" margin="10" visibility="{{ isFinished ? 'collapsed' : totalQuizzes === 0 ? 'collapsed' : 'visible' }}">
             <ScrollView>
                 <Label textWrap="true" row="0" col="0" fontSize="20" >
                     <Label.formattedText>
@@ -35,6 +35,8 @@
                 <Button width="100%" class="zmdi" text="{{ currentQuizzIndex !== totalQuizzes - 1 ? ('Next ' + '\uf3b4') : 'Finish' }}" tap="nextQuizz" isEnabled="{{ isAnswered }}" />
             </FlexboxLayout>
         </GridLayout>
+
+        <Label visibility="{{ totalQuizzes === 0 ? 'visible' : 'collapsed' }}" text="No Item" textWrap="true" height="100%" fontSize="20" horizontalAlignment="center" />
 
         <GridLayout rows="*, auto" columns="*" visibility="{{ isFinished ? 'visible' : 'collapsed' }}">
             <StackLayout row="0" col="0">
