@@ -6,6 +6,7 @@ export class TypingViewModel extends Observable {
     private _typingService = TypingService.getInstance();
     private _questions: Typing[] = [];
     public currentIndex: number = 0;
+    public isFinished: boolean = false;
     private answeredQuestion = [];
 
     constructor(topic: String) {

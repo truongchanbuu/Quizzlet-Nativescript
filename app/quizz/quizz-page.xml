@@ -65,15 +65,15 @@
                         clockwise="true"
                         animateFrom="0"
                         rimWidth="30"
-                        progress="{{ progress * 100 }}"
-                        text="{{ progress * 100 + '%' }}"
+                        progress="{{ (progress || 0) * 100 }}"
+                        text="{{ (progress || 0) * 100 + '%' }}"
                         textSize="10" />
                     
                     <GridLayout rows="auto, auto" columns="*, *" marginLeft="20" horizontalAlignment="right" >
                         <Label class="statics-label" text="Đúng:" row="0" col="0" />
-                        <Label class="statics-label" text="{{ correctQuizzes.length }}" row="0" col="1" textAlignment="right" />
+                        <Label class="statics-label" text="{{ (correctQuizzes.length || 0) }}" row="0" col="1" textAlignment="right" />
                         <Label class="statics-label" text="Sai:" row="1" col="0" />
-                        <Label class="statics-label" text="{{ wrongQuizzes.length }}" row="1" col="1" textAlignment="right" />
+                        <Label class="statics-label" text="{{ (wrongQuizzes.length || 0) }}" row="1" col="1" textAlignment="right" />
                     </GridLayout>
                 </FlexboxLayout>
             </StackLayout>

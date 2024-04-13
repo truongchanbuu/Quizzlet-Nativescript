@@ -9,7 +9,7 @@
     </Page.actionBar>
 
     <StackLayout>
-        <ScrollView width="100%" height="50%" visibility="{{ currentIndex < totalQuestions ? 'visible' : 'collapsed' }}">
+        <ScrollView width="100%" height="50%" visibility="{{ isFinished ? 'collapsed' : totalQuestions === 0 ? 'collapsed' : 'visible' }}">
             <Label textWrap="true" fontSize="20" margin="10">
                 <Label.formattedText>
                     <FormattedString>
@@ -22,11 +22,13 @@
             </Label>
         </ScrollView>
 
-        <TextField id="answer-box" hint="Typing answer..." text="" returnKeyType="done" autocapitalizationType="allCharacters" padding="10" visibility="{{ currentIndex < totalQuestions ? 'visible' : 'collapsed' }}" />
+        <TextField id="answer-box" hint="Typing answer..." text="" returnKeyType="done" autocapitalizationType="allCharacters" padding="10" visibility="{{ isFinished ? 'collapsed' : totalQuestions === 0 ? 'collapsed' : 'visible' }}" />
 
-        <Button text="Kiểm tra" tap="checkAnswer" marginTop="20" backgroundColor="blue" color="white" fontWeight="bold" visibility="{{ currentIndex < totalQuestions ? 'visible' : 'collapsed' }}" />
+        <Button text="Kiểm tra" tap="checkAnswer" marginTop="20" backgroundColor="blue" color="white" fontWeight="bold" visibility="{{ isFinished ? 'collapsed' : totalQuestions === 0 ? 'collapsed' : 'visible' }}" />
 
-        <GridLayout rows="*, auto" columns="*" visibility="{{ currentIndex < totalQuestions ? 'collapsed' : 'visible' }}">
+        <Label visibility="{{ totalQuestions === 0 ? 'visible' : 'collapsed' }}" text="No Item" textWrap="true" height="100%" fontSize="20" horizontalAlignment="center" />        
+
+        <GridLayout rows="*, auto" columns="*" visibility="{{ isFinished ? 'visible' : 'collapsed' }}">
             <StackLayout row="0" col="0">
                 <FlexboxLayout margin="0 10 0 10">
                     <Image
@@ -53,15 +55,15 @@
                         clockwise="true"
                         animateFrom="0"
                         rimWidth="30"
-                        progress="{{ progress * 100 }}"
-                        text="{{ progress * 100 + '%' }}"
+                        progress="{{ (progress || 0) * 100 }}"
+                        text="{{ (progress || 0) * 100 + '%' }}"
                         textSize="10" />
                     
                     <GridLayout rows="auto, auto" columns="*, *" marginLeft="20" horizontalAlignment="right" >
                         <Label class="statics-label" text="Đúng:" row="0" col="0" />
-                        <Label class="statics-label" text="{{ correctUserAnswers.length }}" row="0" col="1" textAlignment="right" />
+                        <Label class="statics-label" text="{{ (correctUserAnswers.length || 0) }}" row="0" col="1" textAlignment="right" />
                         <Label class="statics-label" text="Sai:" row="1" col="0" />
-                        <Label class="statics-label" text="{{ wrongUserAnswers.length }}" row="1" col="1" textAlignment="right" />
+                        <Label class="statics-label" text="{{ (wrongUserAnswers.length || 0) }}" row="1" col="1" textAlignment="right" />
                     </GridLayout>
                 </FlexboxLayout>
             </StackLayout>

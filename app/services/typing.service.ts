@@ -1,44 +1,30 @@
+import { firebase } from "@nativescript/firebase-core";
+import { Database } from "@nativescript/firebase-database";
 import { Typing } from "~/models/typing.model";
 
 export class TypingService {
-    private _question: Typing[] = [
-        {
-            id: 0,
-            topic: 'Geography',
-            question: 'Where is the capital of Viet Nam?',
-            answer: ['Ha Noi'],
-        },
-        {
-            id: 1,
-            topic: 'English',
-            question: 'Extinct có nghĩa là gì?',
-            answer: ['tuyệt chủng'],
-        },
-        {
-            id: 2,
-            topic: 'IT',
-            question: '1 byte có mấy bit?',
-            answer: ['8', 'tám']
-        },
-        {
-            id: 3,
-            topic: 'Math',
-            question: '1 + 1 = ?',
-            answer: ['2', 'hai'],
-        },
-        {
-            id: 4,
-            topic: 'Math',
-            question: '2 x 2 = ?',
-            answer: ['4', 'bốn'],
-        },
-        {
-            id: 5,
-            topic: 'IT',
-            question: 'Nativescript được ra mắt vào khoảng thời gian (ngày, tháng, năm) nào?',
-            answer: ['2014'],
-        },
-    ];
+    private database: Database;
+    private _question: Typing[] = [];
+    async initData() {
+        await firebase().initializeApp();
+    }
+    constructor() {
+        this.initData();
+        this.database = firebase().database();
+        this.database
+            .ref()
+            .child('questions')
+            .once('value')
+            .then(snapshot => {
+                if (snapshot.exists()) {
+                    console.log(snapshot.val())
+                    this._question = snapshot.val();
+                } else {
+                    console.log('No data availabel');
+                }
+            })
+            .catch(e => console.log(e));
+    }
 
     private static _instance = new TypingService();
 
@@ -51,6 +37,10 @@ export class TypingService {
     }
 
     public getAllQuestions() {
+        if (!Array.isArray(this._question)) {
+            return [];
+        }
+
         return this._question;
     }
 }
