@@ -1,6 +1,7 @@
 <Page xmlns="http://www.nativescript.org/tns.xsd" xmlns:ui="@nativescript/animated-circle" loaded="onLoaded" navigatedTo="onNavigatedTo">
     <Page.actionBar>
         <ActionBar>
+            <NavigationButton class="zmdi" text="Go back" icon="font://&#xf2ff;" tap="goBack" />
             <Label
                 text="{{ totalQuizzes === 0 ? '0 / 0' : (currentQuizzIndex + 1 > totalQuizzes) ? totalQuizzes + ' / ' + totalQuizzes  : currentQuizzIndex + 1 + ' / ' + totalQuizzes }}" 
                 textWrap="true" 

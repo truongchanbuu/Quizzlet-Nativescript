@@ -1,4 +1,4 @@
-import { Button, NavigatedData, ObservableArray, Page } from "@nativescript/core";
+import { Button, NavigatedData, NavigationButton, ObservableArray, Page } from "@nativescript/core";
 import { QuizzViewModel } from "./quizz-page-view-mode";
 import { Quizz } from "~/models/quizz.model";
 
@@ -7,11 +7,20 @@ export function onNavigatedTo(args: NavigatedData) {
         return;
     }
 
+    let topic = args.context.topic || 'IT';
+
     const page = args.object as Page;
-    page.bindingContext = new QuizzViewModel('IT');
+    page.bindingContext = new QuizzViewModel(topic);
 }
 
 export function onLoaded(args) {}
+
+export function goBack(args) {
+    const button = args.object as NavigationButton;
+    const page = button.page;
+
+    page.frame.goBack();
+}
 
 export function onAnswer(args) {
     const button = args.object as Button;

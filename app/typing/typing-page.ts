@@ -1,4 +1,4 @@
-import { Button, Dialogs, NavigatedData, Page, TextField } from "@nativescript/core";
+import { Button, Dialogs, NavigatedData, NavigationButton, Page, TextField } from "@nativescript/core";
 import { TypingViewModel } from "./typing-page-view-model";
 
 export function onNavigatedTo(args: NavigatedData) {
@@ -6,11 +6,20 @@ export function onNavigatedTo(args: NavigatedData) {
         return;
     }
 
+    let topic = args.context.topic || 'IT';
+
     const page = args.object as Page;
-    page.bindingContext = new TypingViewModel('Math');
+    page.bindingContext = new TypingViewModel(topic);
 }
 
 export function onLoaded(args) {}
+
+export function goBack(args) {
+    const button = args.object as NavigationButton;
+    const page = button.page;
+
+    page.frame.goBack();
+}
 
 export function checkAnswer(args) {
     const button = args.object as Button;

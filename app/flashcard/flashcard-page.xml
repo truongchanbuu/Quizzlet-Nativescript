@@ -1,6 +1,7 @@
 <Page xmlns="http://www.nativescript.org/tns.xsd" xmlns:ui="@nativescript/animated-circle" loaded="onLoaded" navigatedTo="onNavigatedTo">
     <Page.actionBar>
         <ActionBar>
+            <NavigationButton class="zmdi" text="Go back" icon="font://&#xf2ff;" tap="goBack" />
             <Label
                 text="{{ totalCurrentFlashCard === 0 ? '0 / 0' : (currentCardIndex + 1 > totalCurrentFlashCard ? totalCurrentFlashCard + ' / ' + totalCurrentFlashCard : currentCardIndex + 1 + ' / ' + totalCurrentFlashCard) }}" 
                 textWrap="true" 

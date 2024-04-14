@@ -1,4 +1,4 @@
-import { Button, CoreTypes, Dialogs, NavigatedData, Page, PanGestureEventData } from "@nativescript/core";
+import { Button, CoreTypes, Dialogs, NavigatedData, NavigationButton, Page, PanGestureEventData } from "@nativescript/core";
 import { FlashCardViewModel } from "./flashcard-view-model";
 import { CardState } from "~/models/flashcard-state.model";
 
@@ -10,11 +10,19 @@ export function onNavigatedTo(args: NavigatedData) {
         return
     }
 
+    let topic = args.context.topic || 'IT';
+
     const page = <Page>args.object;
-    page.bindingContext = new FlashCardViewModel('IT');
+    page.bindingContext = new FlashCardViewModel(topic);
 }
 
-export function onLoaded(args) {
+export function onLoaded(args) {}
+
+export function goBack(args) {
+    const button = args.object as NavigationButton;
+    const page = button.page;
+
+    page.frame.goBack();
 }
 
 export function onLongPress(args) {
