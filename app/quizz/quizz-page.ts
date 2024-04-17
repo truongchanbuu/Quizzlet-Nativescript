@@ -1,4 +1,4 @@
-import { Button, NavigatedData, NavigationButton, ObservableArray, Page } from "@nativescript/core";
+import { Button, NavigatedData, NavigationButton, ObservableArray, Page, TapGestureEventData } from "@nativescript/core";
 import { QuizzViewModel } from "./quizz-page-view-mode";
 import { Quizz } from "~/models/quizz.model";
 
@@ -63,7 +63,7 @@ function disableAllButtons(page: Page) {
     });
 }
 
-export function nextQuizz(args) {
+export function nextQuizz(args: TapGestureEventData) {
     const button = args.object as Button;
     const viewModel = button.page.bindingContext as QuizzViewModel;
     
