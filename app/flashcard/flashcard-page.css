@@ -1,0 +1,42 @@
+[class ^= counter-] {
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    font-size: 20;
+}
+
+.counter-left {
+    border-radius: 0 20px 20px 0;
+}
+
+.counter-right {
+    border-radius: 20px 0px 0px 20px;
+}
+
+.flippable-card {
+    width: 85%;
+    height: 85%;
+    border-radius: 100px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+/* .finish-label {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.statics-label {
+    font-size: 20;
+} */
+
+.button-no-border {
+    background-color: transparent;
+    border-width: 0;
+    color: blue;
+    box-shadow: none;
+}
+
+/* .reset-button {
+    background-color: blue;
+    color: white;
+} */

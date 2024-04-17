@@ -4,3 +4,22 @@
 Button.-primary {
   font-size: 18;
 }
+
+.zmdi {
+  font-family: Material-Design-Iconic-Font;
+}
+
+.finish-label {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.statics-label {
+  font-size: 20;
+}
+
+.reset-button {
+  background-color: blue;
+  color: white;
+  font-weight: bold;
+}

@@ -1,0 +1,75 @@
+<Page xmlns="http://www.nativescript.org/tns.xsd" xmlns:ui="@nativescript/animated-circle" loaded="onLoaded" navigatedTo="onNavigatedTo">
+    <Page.actionBar>
+        <ActionBar>
+            <NavigationButton class="zmdi" text="Go back" icon="font://&#xf2ff;" tap="goBack" />
+            <Label
+                text="{{ totalQuestions === 0 ? '0 / 0' : (currentIndex + 1 > totalQuestions) ? totalQuestions + ' / ' + totalQuestions  : currentIndex + 1 + ' / ' + totalQuestions }}" 
+                textWrap="true" 
+            />
+        </ActionBar>
+    </Page.actionBar>
+
+    <StackLayout>
+        <ScrollView width="100%" height="50%" visibility="{{ isFinished ? 'collapsed' : totalQuestions === 0 ? 'collapsed' : 'visible' }}">
+            <Label textWrap="true" fontSize="20" margin="10">
+                <Label.formattedText>
+                    <FormattedString>
+                        <FormattedString.spans>
+                            <Span text="{{ 'Question ' + (currentIndex + 1) + ':' }}" fontWeight="bold" />
+                            <Span text="{{ ' ' + currentQuestion.question }}" />
+                        </FormattedString.spans>
+                    </FormattedString>
+                </Label.formattedText>
+            </Label>
+        </ScrollView>
+
+        <TextField id="answer-box" hint="Typing answer..." text="" returnKeyType="done" autocapitalizationType="allCharacters" padding="10" visibility="{{ isFinished ? 'collapsed' : totalQuestions === 0 ? 'collapsed' : 'visible' }}" />
+
+        <Button text="Kiểm tra" tap="checkAnswer" marginTop="20" backgroundColor="blue" color="white" fontWeight="bold" visibility="{{ isFinished ? 'collapsed' : totalQuestions === 0 ? 'collapsed' : 'visible' }}" />
+
+        <Label visibility="{{ totalQuestions === 0 ? 'visible' : 'collapsed' }}" text="No Item" textWrap="true" height="100%" fontSize="20" horizontalAlignment="center" />        
+
+        <GridLayout rows="*, auto" columns="*" visibility="{{ isFinished ? 'visible' : 'collapsed' }}">
+            <StackLayout row="0" col="0">
+                <FlexboxLayout margin="0 10 0 10">
+                    <Image
+                        marginRight="20"
+                        width="40%"
+                        stretch="aspectFit"
+                        src="~/assets/images/congratulation-icon.png"
+                    />
+                    <Label 
+                        class="finish-label"
+                        text="Bạn đang làm rất tốt! Hãy tiếp tục tiến lên phía trước nào!!!"
+                        textWrap="true"
+                    />
+                </FlexboxLayout>
+
+                <FlexboxLayout margin="0 10 0 10" justifyContent="space-around" alignItems="center">
+                    <ui:AnimatedCircle
+                        backgroundColor="transparent"
+                        width="30%"
+                        height="30%"
+                        rimColor="orange"
+                        barColor="green"
+                        animated="true"
+                        clockwise="true"
+                        animateFrom="0"
+                        rimWidth="30"
+                        progress="{{ (progress || 0) * 100 }}"
+                        text="{{ (progress || 0) * 100 + '%' }}"
+                        textSize="10" />
+                    
+                    <GridLayout rows="auto, auto" columns="*, *" marginLeft="20" horizontalAlignment="right" >
+                        <Label class="statics-label" text="Đúng:" row="0" col="0" />
+                        <Label class="statics-label" text="{{ (correctUserAnswers.length || 0) }}" row="0" col="1" textAlignment="right" />
+                        <Label class="statics-label" text="Sai:" row="1" col="0" />
+                        <Label class="statics-label" text="{{ (wrongUserAnswers.length || 0) }}" row="1" col="1" textAlignment="right" />
+                    </GridLayout>
+                </FlexboxLayout>
+            </StackLayout>
+
+            <Button row="1" col="0" class="reset-button" text="Đặt lại các câu hỏi" tap="goBackFirstQuestion" />
+        </GridLayout>     
+    </StackLayout>
+</Page>

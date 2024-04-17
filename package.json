@@ -4,10 +4,15 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "@nativescript-community/fonticon": "^3.0.0",
+    "@nativescript/animated-circle": "^1.2.0",
     "@nativescript/core": "~8.6.0",
+    "@nativescript/firebase-core": "^3.2.4",
+    "@nativescript/firebase-database": "^3.2.4",
     "@nativescript/theme": "~3.0.2"
   },
   "devDependencies": {
+    "@nativescript/android": "8.6.2",
     "@nativescript/types": "~8.6.0",
     "@nativescript/webpack": "~5.0.18",
     "typescript": "~5.2.0"

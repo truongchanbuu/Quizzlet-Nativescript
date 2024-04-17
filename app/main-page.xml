@@ -1,9 +1,27 @@
-<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo">
-    <ActionBar title="My App" icon="" />
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" xmlns:mdc="@nativescript-community/ui-material-bottomnavigationbar" navigatingTo="navigatingTo" loaded="onLoaded">
+    <ActionBar title="Quizzlet Demo" icon="" />
 
-    <StackLayout class="p-20">
-        <Label text="Tap the button" class="h1 text-center" />
-        <Button text="TAP" tap="{{ onTap }}" class="-primary" />
-        <Label text="{{ message }}" class="h2 text-center" textWrap="true" />
+    <!-- <GridLayout rows="*, auto" columns="*">
+        <StackLayout id="tab-content" row="0">
+        </StackLayout>
+
+        <mdc:BottomNavigationBar
+            backgroundColor="transparent"
+            activeColor="black"
+            inactiveColor="grey"
+            tabSelected="tabSelected"
+            titleVisibility="false"
+            row="1"
+        >
+            <mdc:BottomNavigationTab class="zmdi" title="Home" icon="font://&#xf175;" />
+            <mdc:BottomNavigationTab class="zmdi" title="Learn" icon="font://&#xf11c;" />
+            <mdc:BottomNavigationTab class="zmdi" title="Third" icon="font://&#xf197;" />
+        </mdc:BottomNavigationBar>
+    </GridLayout> -->
+
+    <StackLayout>
+        <Button text="Learn By Flash Card" tap="learnByFlashCard" />
+        <Button text="Learn By Quizz" tap="learnByQuizz" />
+        <Button text="Learn By Typing Question" tap="learnByTypingQuestion" />
     </StackLayout>
 </Page>
