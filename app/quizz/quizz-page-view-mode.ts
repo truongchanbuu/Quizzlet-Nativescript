@@ -1,4 +1,4 @@
-import { Observable, ObservableArray } from "@nativescript/core";
+import { Observable } from "@nativescript/core";
 import { Quizz } from "~/models/quizz.model";
 import { QuizzService } from "~/services/quizz.service";
 

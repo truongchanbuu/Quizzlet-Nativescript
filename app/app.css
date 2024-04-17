@@ -23,3 +23,7 @@ Button.-primary {
   color: white;
   font-weight: bold;
 }
+
+.selected-item {
+  background-color: red;
+}

@@ -1,38 +1,60 @@
-import { Observable } from '@nativescript/core'
+import { Dialogs, Frame, ItemEventData, Observable, Page } from '@nativescript/core'
+import { TopicService } from './services/topic.service';
+import { Topic } from './models/topic.model';
 
-export class HelloWorldModel extends Observable {
-  private _counter: number
-  private _message: string
+export class HomePageViewModel extends Observable {
+  private topicService: TopicService;
+  private topics: Topic[];
+  public selectedTopic: String;
 
   constructor() {
-    super()
-
-    // Initialize default values.
-    this._counter = 42
-    this.updateMessage()
+    super();
+    this.topicService = new TopicService();
+    this.topics = this.topicService.getTopics();
   }
 
-  get message(): string {
-    return this._message
+  getTopics(): Topic[] {
+    return this.topics;
   }
 
-  set message(value: string) {
-    if (this._message !== value) {
-      this._message = value
-      this.notifyPropertyChange('message', value)
-    }
+  learnByFlashCard(topic: String) {
+    Frame.topmost().navigate({
+      moduleName: 'flashcard/flashcard-page',
+      context: { topic: topic },
+    });
   }
 
-  onTap() {
-    this._counter--
-    this.updateMessage()
+  learnByQuizz(topic: String) {
+    Frame.topmost().navigate({
+      moduleName: 'quizz/quizz-page',
+      context: { topic: topic },
+    });
   }
 
-  private updateMessage() {
-    if (this._counter <= 0) {
-      this.message = 'Hoorraaay! You unlocked the NativeScript clicker achievement!'
-    } else {
-      this.message = `${this._counter} taps left`
-    }
+  learnByTypingQuestion(topic: String) {
+    Frame.topmost().navigate({
+      moduleName: 'typing/typing-page',
+      context: { topic: topic },
+    });
+  }
+
+  onItemTap(args: ItemEventData) {
+    const itemIndex = args.index;
+    const currentTopic = this.topics[itemIndex].name;
+
+    Dialogs.action({
+      title: 'Please choose your learning type:',
+      cancelButtonText: 'Cancel',
+      actions: ['Learn By Flash Card', 'Learn By Quizz', 'Learn By Typing Question'],
+    })
+    .then(result => {
+      if (result === 'Learn By Flash Card') {
+        this.learnByFlashCard(currentTopic);
+      } else if (result === 'Learn By Quizz') {
+        this.learnByQuizz(currentTopic);
+      } else {
+        this.learnByTypingQuestion(currentTopic);
+      }
+    });
   }
 }
